@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: pizza-with-swag
+schemes: [http,https]
+host: srini.tech
+basePath: /v1
+consumes: [application/json]
+produces: [application/json]
+paths:
+  /menu:
+    get:
+      tags: [menu]
+      summary: 'Get list of your favourite pizzas'
+      description: 'It returns a list of nested objects which contains all categories and sub-categories required to create menu'
+      operationId: ComboList
+      responses:
+        200:
+          description: 'List of Offers'
+          schema:
+            $ref: '#/definitions/Combos'
+        400:
+          description: Bad Request
+        404:
+          description: Categories Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
+definitions:
+  Combos:
+    type: array
+    items:
+      $ref: '#/definitions/Pizza'
+  Pizza:
+    type: object
+    properties:
+      pizzaId:
+        type: integer
+      pizzaSize:
+        type: integer
+      pizzaPrice:
+        type: number
+      pizzaName:
+        type: string
+      pizzaImageUrl:
+        type: string
+      bcIsActive:
+        type: boolean
+      toppings:
+        type: array
+        items:
+          $ref: '#/definitions/Topping'
+  Topping:
+    type: object
+    properties:
+      toppingId:
+        type: integer
+      ToppingName:
+        type: string
+      toppingImageUrl:
+        type: string
+      toppingIsActive:
+        type: boolean
